@@ -11,9 +11,7 @@ mnist_train = gluon.data.vision.FashionMNIST(train=True, transform=transform)
 mnist_test = gluon.data.vision.FashionMNIST(train=False, transform=transform)
 
 
-
 import matplotlib.pyplot as plt
-
 def show_images(images):
     n = images.shape[0]
     _, figs = plt.subplots(1, n, figsize=(15, 15))
@@ -30,15 +28,26 @@ def get_text_labels(label):
     ]
     return [text_labels[int(i)] for i in label]
 
+
+def accuracy(output, label):
+    return nd.mean(output.argmax(axis=1)==label).asscalar()
+
+def evaluate_accuracy(data_iterator, net):
+    acc = 0.
+    for data, label in data_iterator:
+        output = net(data)
+        acc += accuracy(output, label)
+    return acc / len(data_iterator)
+
 data, label = mnist_train[0:9]
 show_images(data)
 print(get_text_labels(label))
 
+
+batch_size = 1024
+
 train_data = gluon.data.DataLoader(mnist_train, batch_size, shuffle=True)
 test_data = gluon.data.DataLoader(mnist_test, batch_size, shuffle=False)
-
-batch_size = 256
-
 
 net = gluon.nn.Sequential()
 with net.name_scope():
@@ -48,12 +57,11 @@ net.initialize()
 
 softmax_cross_entropy = gluon.loss.SoftmaxCrossEntropyLoss()
 
-trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.1})
+trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.2})
 
-from mxnet import ndarray as nd
 from mxnet import autograd
 
-for epoch in range(5):
+for epoch in range(500):
     train_loss = 0.
     train_acc = 0.
     for data, label in train_data:
@@ -64,8 +72,17 @@ for epoch in range(5):
         trainer.step(batch_size)
 
         train_loss += nd.mean(loss).asscalar()
-        train_acc += utils.accuracy(output, label)
+        train_acc += accuracy(output, label)
 
-    test_acc = utils.evaluate_accuracy(test_data, net)
+    test_acc = evaluate_accuracy(test_data, net)
     print("Epoch %d. Loss: %f, Train acc %f, Test acc %f" % (
         epoch, train_loss/len(train_data), train_acc/len(train_data), test_acc))
+
+data, label = mnist_test[0:9]
+#show_images(data)
+print('true labels')
+print(get_text_labels(label))
+
+predicted_labels = net(data).argmax(axis=1)
+print('predicted labels')
+print(get_text_labels(predicted_labels.asnumpy()))
