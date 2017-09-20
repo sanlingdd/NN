@@ -56,6 +56,7 @@ def softmax(X):
     partition = exp.sum(axis=1, keepdims=True)
     return exp / partition
 
+
 def SGD(params, lr):
     for param in params:
         param[:] = param - lr * param.grad

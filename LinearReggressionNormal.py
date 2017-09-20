@@ -53,7 +53,6 @@ def SGD(params, lr):
 epochs = 5
 learning_rate = .01
 for e in range(epochs):
-    pdb.set_trace()
     total_loss = 0
     for data, label in data_iter():
         with autograd.record():

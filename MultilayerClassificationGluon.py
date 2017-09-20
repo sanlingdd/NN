@@ -14,6 +14,8 @@ with net.name_scope():
     net.add(gluon.nn.Flatten())
     net.add(gluon.nn.Dense(256, activation="relu"))
     net.add(gluon.nn.Dense(256, activation="relu"))
+    net.add(gluon.nn.Dense(256, activation="relu"))
+    net.add(gluon.nn.Dense(256, activation="relu"))
     net.add(gluon.nn.Dense(10))
 net.initialize()
 
@@ -30,7 +32,7 @@ batch_size = 256
 train_data, test_data = utils.load_data_fashion_mnist(batch_size)
 
 softmax_cross_entropy = gluon.loss.SoftmaxCrossEntropyLoss()
-trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.5})
+trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.01,'wd':0.01})
 
 for epoch in range(20):
     train_loss = 0.
