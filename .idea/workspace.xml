@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a12ca98-8cc7-4cd6-b0cd-212f616c453e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/submission.csv" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ConNN.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ConNNGluon.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HousePredict.py" afterPath="$PROJECT_DIR$/HousePredict.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,8 +16,10 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/NN$MultilayerClassificationNormal.coverage" NAME="MultilayerClassificationNormal Coverage Results" MODIFIED="1505820561216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NN$LogicalReggressionNormal.coverage" NAME="LogicalReggressionNormal Coverage Results" MODIFIED="1505904451987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NN$ConNNGluon.coverage" NAME="ConNNGluon Coverage Results" MODIFIED="1506425208048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NN$ConNN.coverage" NAME="ConNN Coverage Results" MODIFIED="1506426150111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NN$MultilayerClassificationGluon.coverage" NAME="MultilayerClassificationGluon Coverage Results" MODIFIED="1505899604718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NN$HousePredict.coverage" NAME="HousePredict Coverage Results" MODIFIED="1506410993722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NN$HousePredict.coverage" NAME="HousePredict Coverage Results" MODIFIED="1506424205159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NN$LogicalReggressionGluon.coverage" NAME="LogicalReggressionGluon Coverage Results" MODIFIED="1505899632627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -52,21 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NormalizationGluon.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NormalizationGluon.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1083">
-              <caret line="57" column="33" lean-forward="true" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HousePredict.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HousePredict.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HousePredict.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1540">
-              <caret line="129" column="51" lean-forward="true" selection-start-line="129" selection-start-column="51" selection-end-line="129" selection-end-column="51" />
+            <state relative-caret-position="152">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -74,11 +66,45 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ConNN.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ConNN.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="447">
+              <caret line="90" column="27" lean-forward="true" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
+              <folding>
+                <element signature="e#16#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConNNGluon.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ConNNGluon.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="30" column="24" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="24" />
+              <folding>
+                <element signature="e#16#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-172">
+              <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="LinearReggressionGluon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LinearReggressionGluon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-190">
-              <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="361">
+              <caret line="49" column="32" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="32" />
               <folding>
                 <element signature="e#15#46#0" expanded="true" />
               </folding>
@@ -139,6 +165,8 @@
         <option value="$PROJECT_DIR$/LogicalReggressionGluon.py" />
         <option value="$PROJECT_DIR$/LogicalReggressionNormal.py" />
         <option value="$PROJECT_DIR$/HousePredict.py" />
+        <option value="$PROJECT_DIR$/ConNNGluon.py" />
+        <option value="$PROJECT_DIR$/ConNN.py" />
       </list>
     </option>
   </component>
@@ -178,6 +206,11 @@
             </path>
             <path>
               <item name="NN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NN" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NN" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -195,6 +228,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\i071944\PycharmProjects\NN" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -207,7 +245,43 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.HousePredict">
+  <component name="RunManager" selected="Python.ConNN">
+    <configuration name="ConNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="NN" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ConNN.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="ConNNGluon" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="NN" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ConNNGluon.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="HousePredict" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -262,56 +336,20 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="MultilayerClassificationGluon" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="NN" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MultilayerClassificationGluon.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="MultilayerClassificationNormal" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="NN" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MultilayerClassificationNormal.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.LogicalReggressionGluon" />
-      <item index="1" class="java.lang.String" itemvalue="Python.MultilayerClassificationNormal" />
-      <item index="2" class="java.lang.String" itemvalue="Python.MultilayerClassificationGluon" />
-      <item index="3" class="java.lang.String" itemvalue="Python.LogicalReggressionNormal" />
-      <item index="4" class="java.lang.String" itemvalue="Python.HousePredict" />
+      <item index="1" class="java.lang.String" itemvalue="Python.LogicalReggressionNormal" />
+      <item index="2" class="java.lang.String" itemvalue="Python.HousePredict" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ConNN" />
+      <item index="4" class="java.lang.String" itemvalue="Python.ConNNGluon" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.HousePredict" />
-        <item index="1" class="java.lang.String" itemvalue="Python.LogicalReggressionNormal" />
-        <item index="2" class="java.lang.String" itemvalue="Python.LogicalReggressionGluon" />
-        <item index="3" class="java.lang.String" itemvalue="Python.MultilayerClassificationGluon" />
-        <item index="4" class="java.lang.String" itemvalue="Python.MultilayerClassificationNormal" />
+        <item index="0" class="java.lang.String" itemvalue="Python.ConNN" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ConNNGluon" />
+        <item index="2" class="java.lang.String" itemvalue="Python.HousePredict" />
+        <item index="3" class="java.lang.String" itemvalue="Python.LogicalReggressionNormal" />
+        <item index="4" class="java.lang.String" itemvalue="Python.LogicalReggressionGluon" />
       </list>
     </recent_temporary>
   </component>
@@ -333,13 +371,13 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3545966" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3545966" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30393997" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -369,16 +407,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding>
-            <element signature="e#15#46#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LogicalReggressionNormal.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-627">
@@ -437,16 +465,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LinearReggressionGluon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-190">
-          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#15#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LogicalReggressionGluon.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -471,12 +489,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-172">
+          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/HousePredict.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1540">
-          <caret line="129" column="51" lean-forward="true" selection-start-line="129" selection-start-column="51" selection-end-line="129" selection-end-column="51" />
+        <state relative-caret-position="152">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LinearReggressionGluon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="49" column="32" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="32" />
+          <folding>
+            <element signature="e#15#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConNNGluon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="30" column="24" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="24" />
+          <folding>
+            <element signature="e#16#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConNN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="90" column="27" lean-forward="true" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
+          <folding>
+            <element signature="e#16#47#0" expanded="true" />
           </folding>
         </state>
       </provider>
