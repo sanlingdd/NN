@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a12ca98-8cc7-4cd6-b0cd-212f616c453e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HousePredict.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NormalizationGluon.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NormalizationNormal.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/test.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/train.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/submission.csv" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fashion-mnist/t10k-images-idx3-ubyte.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fashion-mnist/t10k-labels-idx1-ubyte.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fashion-mnist/train-images-idx3-ubyte.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fashion-mnist/train-labels-idx1-ubyte.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/submission.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LinearReggressionNormal.py" afterPath="$PROJECT_DIR$/LinearReggressionNormal.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogicalReggressionGluon.py" afterPath="$PROJECT_DIR$/LogicalReggressionGluon.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogicalReggressionNormal.py" afterPath="$PROJECT_DIR$/LogicalReggressionNormal.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MultilayerClassificationGluon.py" afterPath="$PROJECT_DIR$/MultilayerClassificationGluon.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HousePredict.py" afterPath="$PROJECT_DIR$/HousePredict.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,7 +17,7 @@
     <SUITE FILE_PATH="coverage/NN$MultilayerClassificationNormal.coverage" NAME="MultilayerClassificationNormal Coverage Results" MODIFIED="1505820561216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NN$LogicalReggressionNormal.coverage" NAME="LogicalReggressionNormal Coverage Results" MODIFIED="1505904451987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NN$MultilayerClassificationGluon.coverage" NAME="MultilayerClassificationGluon Coverage Results" MODIFIED="1505899604718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NN$HousePredict.coverage" NAME="HousePredict Coverage Results" MODIFIED="1505911385647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NN$HousePredict.coverage" NAME="HousePredict Coverage Results" MODIFIED="1506410993722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NN$LogicalReggressionGluon.coverage" NAME="LogicalReggressionGluon Coverage Results" MODIFIED="1505899632627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -37,8 +25,8 @@
       <file leaf-file-name="LogicalReggressionGluon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LogicalReggressionGluon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="53" column="28" lean-forward="false" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="28" />
+            <state relative-caret-position="342">
+              <caret line="66" column="34" lean-forward="true" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -47,8 +35,8 @@
       <file leaf-file-name="MultilayerClassificationNormal.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MultilayerClassificationNormal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="12" />
+            <state relative-caret-position="247">
+              <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -67,8 +55,8 @@
       <file leaf-file-name="NormalizationGluon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NormalizationGluon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="47" column="38" lean-forward="false" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="38" />
+            <state relative-caret-position="1083">
+              <caret line="57" column="33" lean-forward="true" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -77,8 +65,8 @@
       <file leaf-file-name="HousePredict.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HousePredict.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="134" column="64" lean-forward="false" selection-start-line="134" selection-start-column="64" selection-end-line="134" selection-end-column="64" />
+            <state relative-caret-position="1540">
+              <caret line="129" column="51" lean-forward="true" selection-start-line="129" selection-start-column="51" selection-end-line="129" selection-end-column="51" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -89,9 +77,11 @@
       <file leaf-file-name="LinearReggressionGluon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LinearReggressionGluon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="6" />
-              <folding />
+            <state relative-caret-position="-190">
+              <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding>
+                <element signature="e#15#46#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -99,8 +89,8 @@
       <file leaf-file-name="LinearReggressionNormal.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LinearReggressionNormal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="46" column="33" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="33" />
+            <state relative-caret-position="361">
+              <caret line="19" column="15" lean-forward="true" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -111,30 +101,8 @@
       <file leaf-file-name="MultilayerClassificationGluon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MultilayerClassificationGluon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1">
-              <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-              <folding>
-                <element signature="e#15#46#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LogicalReggressionNormal.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LogicalReggressionNormal.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-627">
-              <caret line="52" column="16" lean-forward="false" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+            <state relative-caret-position="265">
+              <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -148,6 +116,13 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>k_fold_cross_valid</find>
+      <find>rmse_logrmse_log</find>
+      <find>test</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -355,19 +330,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3545966" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30393997" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -385,42 +359,22 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
+    <breakpoint-manager>
+      <option name="time" value="21" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="ALL_Train_XY.shape()" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MultilayerClassificationNormal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1">
           <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
           <folding>
-            <element signature="e#15#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LinearReggressionGluon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LinearReggressionNormal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="46" column="33" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#15#46#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -433,18 +387,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogicalReggressionGluon.py">
+    <entry file="file://$PROJECT_DIR$/NormalizationGluon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="53" column="28" lean-forward="false" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="28" />
+        <state relative-caret-position="1083">
+          <caret line="57" column="33" lean-forward="true" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MultilayerClassificationGluon.py">
+    <entry file="file://$PROJECT_DIR$/MultilayerClassificationNormal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="247">
+          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -457,18 +411,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NormalizationGluon.py">
+    <entry file="file://$PROJECT_DIR$/LinearReggressionNormal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="47" column="38" lean-forward="false" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="38" />
+        <state relative-caret-position="361">
+          <caret line="19" column="15" lean-forward="true" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/WinPython/WinPython-64bit-3.5.4.0Qt5/python-3.5.4.amd64/Lib/site-packages/mxnet/ndarray/ndarray.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="1465" column="0" lean-forward="false" selection-start-line="1465" selection-start-column="0" selection-end-line="1465" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/WinPython/WinPython-64bit-3.5.4.0Qt5/python-3.5.4.amd64/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LinearReggressionGluon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-190">
+          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogicalReggressionGluon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="66" column="34" lean-forward="true" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MultilayerClassificationGluon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/WinPython/WinPython-64bit-3.5.4.0Qt5/python-3.5.4.amd64/Lib/site-packages/pandas/core/series.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="2354" column="0" lean-forward="false" selection-start-line="2354" selection-start-column="0" selection-end-line="2354" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HousePredict.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="134" column="64" lean-forward="false" selection-start-line="134" selection-start-column="64" selection-end-line="134" selection-end-column="64" />
+        <state relative-caret-position="1540">
+          <caret line="129" column="51" lean-forward="true" selection-start-line="129" selection-start-column="51" selection-end-line="129" selection-end-column="51" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
