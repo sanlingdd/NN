@@ -27,11 +27,11 @@ b1 = nd.zeros(W1.shape[0], ctx=ctx)
 W2 = nd.random_normal(shape=(50,20,3,3), scale=weight_scale, ctx=ctx)
 b2 = nd.zeros(W2.shape[0], ctx=ctx)
 
-# output dim = 128
+# output dim = 128, 128 nodes
 W3 = nd.random_normal(shape=(1250, 128), scale=weight_scale, ctx=ctx)
 b3 = nd.zeros(W3.shape[1], ctx=ctx)
 
-# output dim = 10
+# output dim = 10, ten nodes
 W4 = nd.random_normal(shape=(W3.shape[1], 10), scale=weight_scale, ctx=ctx)
 b4 = nd.zeros(W4.shape[1], ctx=ctx)
 
@@ -42,17 +42,22 @@ for param in params:
 
 def net(X, verbose=False):
     X = X.as_in_context(W1.context)
+#    print(X[0])
     # 第一层卷积
     h1_conv = nd.Convolution(
         data=X, weight=W1, bias=b1, kernel=W1.shape[2:], num_filter=W1.shape[0])
+#    print(W1)
     h1_activation = nd.relu(h1_conv)
     h1 = nd.Pooling(
-        data=h1_activation, pool_type="max", kernel=(2,2), stride=(2,2))
+        data=h1_activation, pool_type="avg", kernel=(2,2), stride=(2,2))
+#    print(h1)
     # 第二层卷积
     h2_conv = nd.Convolution(
         data=h1, weight=W2, bias=b2, kernel=W2.shape[2:], num_filter=W2.shape[0])
+#    print(W2)
     h2_activation = nd.relu(h2_conv)
-    h2 = nd.Pooling(data=h2_activation, pool_type="max", kernel=(2,2), stride=(2,2))
+    h2 = nd.Pooling(data=h2_activation, pool_type="avg", kernel=(2,2), stride=(2,2))
+#    print(h2)
     h2 = nd.flatten(h2)
     # 第一层全连接
     h3_linear = nd.dot(h2, W3) + b3
