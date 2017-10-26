@@ -25,9 +25,17 @@ conn = pymysql.Connect(host="localhost",
 cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
 
 sql = "SELECT * FROM `day` where `code`=%s" 
-cursor.execute(sql, ('6000000',))
+cursor.execute(sql, ('600000',))
 table_rows = cursor.fetchone()
-#df = pd.read_sql('SELECT * FROM DAY where CODE = \'6000000\'',con=conn)
-df = pd.DataFrame(table_rows)
+df = pd.read_sql('SELECT * FROM DAY where CODE = \'600000\'',con=conn)
+#df1 = pd.DataFrame(table_rows)
 
-df
+
+with conn.cursor() as cursor:
+    # Read a single record
+    sql = "SELECT `ID` FROM `day` WHERE `code`=%s" 
+
+    cursor.execute(sql, ('6000000',))
+    result = cursor.fetchone()
+    print(result)
+
