@@ -2,11 +2,18 @@
 import sys
 sys.path.append('..')
 
+from mxnet import ndarray as nd
+import re
+
 with open("data/timemachine.txt") as f:
     time_machine = f.read()
 
-time_machine = time_machine.lower().replace('\n', '').replace('\r', '')
-time_machine = time_machine[0:10000]
+def getWords(string):
+    eraseString = string.lower().replace('\n', '').replace('\r', '').replace('\s','')
+    return re.split('(\W)', eraseString)
+
+#time_machine = time_machine.lower().replace('\n', '').replace('\r', '').replace('\s','')
+time_machine = getWords(time_machine)
 
 character_list = list(set(time_machine))
 character_dict = dict([(char,i) for i,char in enumerate(character_list)])
@@ -14,14 +21,8 @@ character_dict = dict([(char,i) for i,char in enumerate(character_list)])
 vocab_size = len(character_dict)
 
 print('vocab size:', vocab_size)
-print(character_dict)
 
 time_numerical = [character_dict[char] for char in time_machine]
-
-sample = time_numerical[:40]
-
-print('chars: \n', ''.join([character_list[idx] for idx in sample]))
-print('\nindices: \n', sample)
 
 import random
 from mxnet import nd
@@ -46,7 +47,7 @@ def data_iter(batch_size, seq_len, ctx=None):
 
 import mxnet as mx
 
-# ???? GPU
+#GPU
 import sys
 sys.path.append('..')
 import utils
@@ -87,7 +88,7 @@ def rnn(inputs, H):
 
 def predict(prefix, num_chars):
     # ??? prefix ??????? num_chars ???
-    prefix = prefix.lower()
+    prefix = getWords(prefix)
     state = nd.zeros(shape=(1, num_hidden), ctx=ctx)
     output = [character_dict[prefix[0]]]
     for i in range(num_chars+len(prefix)):
@@ -144,6 +145,6 @@ for e in range(epochs+1):
 
     if e % 20 == 0:
         print("Epoch %d. PPL %f" % (e, exp(train_loss/num_examples)))
-        print(' - ', predict('The Time Ma', 100))
+        print(' - ', predict('The Time ', 100))
         print(' - ', predict("The Medical Man rose, came to the lamp,", 100), '\n')
         

@@ -23,7 +23,7 @@ from mxnet.gluon import nn
 
 net = nn.Sequential()
 with net.name_scope():
-    net.add(nn.Conv2D(channels=20, kernel_size=5, activation='relu'))
+    net.add(nn.Conv2D(channels=20, kernel_size=5, activation='relu')) #
     net.add(nn.MaxPool2D(pool_size=2, strides=2))
     net.add(nn.Conv2D(channels=50, kernel_size=3, activation='relu'))
     net.add(nn.MaxPool2D(pool_size=2, strides=2))

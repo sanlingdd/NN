@@ -13,13 +13,11 @@ all_X[numeric_feats] = all_X[numeric_feats].apply(lambda x: (x - x.mean())
                                                             / (x.std()))
 
 handledTrain = all_X[:]
-handledTrain.to_csv('afterNormalization.csv', index=False)
 
 all_X = pd.get_dummies(all_X, dummy_na=True)
-handledTrain.to_csv('filledDescrteToNumber.csv', index=False)
+
 
 all_X = all_X.fillna(all_X.mean())
-handledTrain.to_csv('filledNA.csv', index=False)
 
 num_train = train.shape[0]
 
@@ -28,10 +26,8 @@ X_test = all_X[num_train:].as_matrix()
 y_train = train.SalePrice.as_matrix()
 
 handledTrain = all_X[:num_train]
-handledTrain.to_csv('handledTrain.csv', index=False)
 
 handledTrain = all_X[num_train:]
-handledTrain.to_csv('handledTest.csv', index=False)
 
 
 from mxnet import ndarray as nd
