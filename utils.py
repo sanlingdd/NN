@@ -10,21 +10,36 @@ def SGD(params, lr):
         param[:] = param - lr * param.grad
 
 def accuracy(output, label):
-    return nd.mean(output.argmax(axis=1)==label).asscalar()
+    predict = output.argmax(axis=1)
+    correct = 0.
+    iter = 0
+    for value in predict:
+        if value == 1:
+            if label[iter] == value:
+                correct+=1
+        
+        iter+=1
+    #1 Precise
+    truePrecise = 0.
+    if nd.sum(predict) != 0:
+        truePrecise = correct / nd.sum(predict).asscalar()
+    return nd.mean(predict==label).asscalar(), truePrecise
 
 def evaluate_accuracy(data_iterator, net, ctx=mx.cpu()):
     acc = 0.
+    trueacc =0.
     total = 0
-    print(id(data_iterator))
     for data, label in data_iterator:
         output = net(data.as_in_context(ctx))
-        acc += accuracy(output, label.as_in_context(ctx))
+        tacc, t1acc= accuracy(output, label.as_in_context(ctx))
+        acc += tacc
+        trueacc += t1acc
         total += 1
     
     if total == 0 :
         return acc
     
-    return acc / total
+    return acc / total, trueacc / total
 
 def load_data_fashion_mnist(batch_size, resize=None):
     """download the fashion mnist dataest and then load into memory"""
@@ -60,11 +75,13 @@ def data_iter(X,y, batch_size):
         j = nd.array(idx[i:min(i+batch_size,len(X))])
         yield nd.take(X, j), nd.take(y, j)
 
-def trainXY(X_train,y_train, X_test,y_test,batch_size, net, loss, trainer, ctx, num_epochs, print_batches=None):
+
+def trainXY(X_train,y_train, X_test,y_test,x_predict, y_predict, batch_size, net, loss, trainer, ctx, num_epochs, print_batches=None):
     """Train a network"""
     for epoch in range(num_epochs):
         train_loss = 0.
         train_acc = 0.
+        train_1acc = 0.
         batch = 0
         for data, label in data_iter(X_train,y_train,batch_size):
             label = label.as_in_context(ctx)
@@ -76,17 +93,20 @@ def trainXY(X_train,y_train, X_test,y_test,batch_size, net, loss, trainer, ctx, 
             trainer.step(data.shape[0])
 
             train_loss += nd.mean(L).asscalar()
-            train_acc += accuracy(output, label)
+            ttrain_acc,ttrain_1acc = accuracy(output, label)
+            train_acc +=ttrain_acc
+            train_1acc+=ttrain_1acc
 
             batch += 1
             if print_batches and batch % print_batches == 0:
                 print("Batch %d. Loss: %f, Train acc %f" % (
                     batch, train_loss/batch, train_acc/batch
                 ))
-
-        test_acc = evaluate_accuracy(data_iter(X_test,y_test,batch_size), net, ctx)
-        print("Epoch %d. Loss: %f, Train acc %f, Test acc %f" % (
-            epoch, train_loss/batch, train_acc/batch, test_acc
+                
+        test_acc, test_1acc = evaluate_accuracy(data_iter(X_test,y_test,batch_size), net, ctx)
+        predict_acc, predict_1acc = evaluate_accuracy(data_iter(x_predict,y_predict,batch_size), net, ctx)
+        print("Epoch %d. Loss: %f, Train acc: %f, Test acc: %f, Train True Value acc: %f, Test True Value acc: %f, Predict Acc: %f, Predict True Acc:%f" % (
+            epoch, train_loss/batch, train_acc/batch, test_acc,train_1acc / batch, test_1acc,predict_acc,predict_1acc
         ))
 
 

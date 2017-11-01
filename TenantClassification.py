@@ -52,6 +52,12 @@ import utils
 from mxnet import init
 from mxnet import gluon
 
+<<<<<<< d33c365fdc3f611970cfb169aa3525cb4bb9a5fb
+=======
+#train_data = gluon.data.DataLoader(mnist_train, batch_size, shuffle=True)
+#test_data = gluon.data.DataLoader(mnist_test, batch_size, shuffle=False)
+
+>>>>>>> Stock Predict Ceres
 ctx = utils.try_gpu()
 net.initialize(ctx=ctx, init=init.Xavier())
 
