@@ -101,7 +101,8 @@ def importDataFromCSVToDB(workQueue):
         #df.set_index(['Date'])
         df = df.sort_index(ascending=False)
         #484 is two days' data, 60 days is one training example length
-        tailTarget = min(485 + 60, len(df))
+        #ten days buffer
+        tailTarget = min(242*5 + 60, len(df))
         df = df.iloc[0:tailTarget]
         maxLines = df.index.get_loc(df.index.min())
         if maxLines < 60:
@@ -116,34 +117,158 @@ def importDataFromCSVToDB(workQueue):
                 row = df.iloc[currentRowNum]
                 nextRowNum = currentRowNum - 1
                 nextRow = df.iloc[nextRowNum]
-                highPricePercent = (nextRow['HighPrice'] - row['ClosePrice']) / row['ClosePrice'] * 100
-                AExample['NextDayIncrease'] =  highPricePercent > 0
-                AExample['NextDayIncrease1'] = highPricePercent > 1
-                AExample['NextDayIncrease2'] = highPricePercent > 2
-                AExample['NextDayIncrease3'] = highPricePercent > 3
-                AExample['NextDayIncrease4'] = highPricePercent > 4
-                AExample['NextDayIncrease5'] = highPricePercent > 5
-                AExample['NextDayIncrease6'] = highPricePercent > 6                                                                                                
-                AExample['NextDayIncrease7'] = highPricePercent > 7
-                AExample['NextDayIncrease8'] = highPricePercent > 8
-                AExample['NextDayIncrease9'] = highPricePercent > 9
-                AExample['NextDayIncrease10'] =highPricePercent  > 9.9
                 
+                highPricePercent = (nextRow['HighPrice'] - row['ClosePrice']) / row['ClosePrice'] * 100
                 lowPricePercent = (nextRow['LowPrice'] - row['ClosePrice']) / row['ClosePrice'] * 100
-                AExample['NextDayDecrease1'] = lowPricePercent< -1
-                AExample['NextDayDecrease2'] = lowPricePercent< -2
-                AExample['NextDayDecrease3'] = lowPricePercent< -3
-                AExample['NextDayDecrease4'] = lowPricePercent< -4
-                AExample['NextDayDecrease5'] = lowPricePercent< -5
-                AExample['NextDayDecrease6'] = lowPricePercent< -6
-                AExample['NextDayDecrease7'] = lowPricePercent< -7
-                AExample['NextDayDecrease8'] = lowPricePercent< -8
-                AExample['NextDayDecrease9'] = lowPricePercent< -9
-                AExample['NextDayDecrease10'] =lowPricePercent  < -9.9
-
-                getColumns(AExample.iloc[0])
-                if not tableCreated:
-                    tableCreated = createTable(AExample,'dayTrainExample',cursor,conn)
+                AExample['NextDayHighPriceIncrease'] =  highPricePercent > 0
+                AExample['NextDayHighPriceIncrease1'] = highPricePercent > 1
+                AExample['NextDayHighPriceIncrease2'] = highPricePercent > 2
+                AExample['NextDayHighPriceIncrease3'] = highPricePercent > 3
+                AExample['NextDayHighPriceIncrease4'] = highPricePercent > 4
+                AExample['NextDayHighPriceIncrease5'] = highPricePercent > 5
+                AExample['NextDayHighPriceIncrease6'] = highPricePercent > 6                                                                                                
+                AExample['NextDayHighPriceIncrease7'] = highPricePercent > 7
+                AExample['NextDayHighPriceIncrease8'] = highPricePercent > 8
+                AExample['NextDayHighPriceIncrease9'] = highPricePercent > 9
+                AExample['NextDayHighPriceIncrease10'] =highPricePercent  > 9.9                
+                AExample['NextDayHighPriceDecrease1'] = lowPricePercent< -1
+                AExample['NextDayHighPriceDecrease2'] = lowPricePercent< -2
+                AExample['NextDayHighPriceDecrease3'] = lowPricePercent< -3
+                AExample['NextDayHighPriceDecrease4'] = lowPricePercent< -4
+                AExample['NextDayHighPriceDecrease5'] = lowPricePercent< -5
+                AExample['NextDayHighPriceDecrease6'] = lowPricePercent< -6
+                AExample['NextDayHighPriceDecrease7'] = lowPricePercent< -7
+                AExample['NextDayHighPriceDecrease8'] = lowPricePercent< -8
+                AExample['NextDayHighPriceDecrease9'] = lowPricePercent< -9
+                AExample['NextDayHighPriceDecrease10'] =lowPricePercent  < -9.9
+                                 
+                highPricePercent = (nextRow['ClosePrice'] - row['ClosePrice']) / row['ClosePrice'] * 100
+                lowPricePercent = (nextRow['ClosePrice'] - row['ClosePrice']) / row['ClosePrice'] * 100
+                AExample['NextDayClosePriceIncrease'] =  highPricePercent > 0
+                AExample['NextDayClosePriceIncrease1'] = highPricePercent > 1
+                AExample['NextDayClosePriceIncrease2'] = highPricePercent > 2
+                AExample['NextDayClosePriceIncrease3'] = highPricePercent > 3
+                AExample['NextDayClosePriceIncrease4'] = highPricePercent > 4
+                AExample['NextDayClosePriceIncrease5'] = highPricePercent > 5
+                AExample['NextDayClosePriceIncrease6'] = highPricePercent > 6                                                                                                
+                AExample['NextDayClosePriceIncrease7'] = highPricePercent > 7
+                AExample['NextDayClosePriceIncrease8'] = highPricePercent > 8
+                AExample['NextDayClosePriceIncrease9'] = highPricePercent > 9
+                AExample['NextDayClosePriceIncrease10'] =highPricePercent  > 9.9                
+                AExample['NextDayClosePriceDecrease1'] = lowPricePercent< -1
+                AExample['NextDayClosePriceDecrease2'] = lowPricePercent< -2
+                AExample['NextDayClosePriceDecrease3'] = lowPricePercent< -3
+                AExample['NextDayClosePriceDecrease4'] = lowPricePercent< -4
+                AExample['NextDayClosePriceDecrease5'] = lowPricePercent< -5
+                AExample['NextDayClosePriceDecrease6'] = lowPricePercent< -6
+                AExample['NextDayClosePriceDecrease7'] = lowPricePercent< -7
+                AExample['NextDayClosePriceDecrease8'] = lowPricePercent< -8
+                AExample['NextDayClosePriceDecrease9'] = lowPricePercent< -9
+                AExample['NextDayClosePriceDecrease10'] =lowPricePercent  < -9.9
+                
+                if currentRowNum >2:
+                    regin = df.iloc[currentRowNum - 3 : currentRowNum]                    
+                    highPricePercent = (regin['HighPrice'].max() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    lowPricePercent = (regin['LowPrice'].min() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    
+                    AExample['Next3DayHighPriceIncrease'] =  highPricePercent >  0
+                    AExample['Next3DayHighPriceIncrease3'] = highPricePercent >  3
+                    AExample['Next3DayHighPriceIncrease5'] = highPricePercent >  5
+                    AExample['Next3DayHighPriceIncrease7'] = highPricePercent >  7
+                    AExample['Next3DayHighPriceIncrease9'] = highPricePercent >  9
+                    AExample['Next3DayHighPriceIncrease11'] = highPricePercent > 11
+                    AExample['Next3DayHighPriceIncrease13'] = highPricePercent > 13                                                                                                
+                    AExample['Next3DayHighPriceIncrease15'] = highPricePercent > 15
+                    AExample['Next3DayHighPriceIncrease17'] = highPricePercent > 17
+                    AExample['Next3DayHighPriceIncrease20'] = highPricePercent > 20
+                    AExample['Next3DayHighPriceIncrease25'] =highPricePercent >  25                
+                    AExample['Next3DayHighPriceDecrease3'] = lowPricePercent< -3 
+                    AExample['Next3DayHighPriceDecrease5'] = lowPricePercent< -5 
+                    AExample['Next3DayHighPriceDecrease7'] = lowPricePercent< -7 
+                    AExample['Next3DayHighPriceDecrease9'] = lowPricePercent< -9 
+                    AExample['Next3DayHighPriceDecrease11'] = lowPricePercent< -11 
+                    AExample['Next3DayHighPriceDecrease13'] = lowPricePercent< -13
+                    AExample['Next3DayHighPriceDecrease15'] = lowPricePercent< -15
+                    AExample['Next3DayHighPriceDecrease17'] = lowPricePercent< -17
+                    AExample['Next3DayHighPriceDecrease20'] = lowPricePercent< -20
+                    AExample['Next3DayHighPriceDecrease25'] =lowPricePercent <-25
+                                                                               
+                    highPricePercent = (regin['ClosePrice'].max() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    lowPricePercent = (regin['ClosePrice'].min() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    AExample['Next3DayClosePriceIncrease'] =  highPricePercent > 0 
+                    AExample['Next3DayClosePriceIncrease3'] = highPricePercent > 3 
+                    AExample['Next3DayClosePriceIncrease5'] = highPricePercent > 5 
+                    AExample['Next3DayClosePriceIncrease7'] = highPricePercent > 7 
+                    AExample['Next3DayClosePriceIncrease9'] = highPricePercent > 9 
+                    AExample['Next3DayClosePriceIncrease11'] = highPricePercent > 11
+                    AExample['Next3DayClosePriceIncrease13'] = highPricePercent > 13                                                                                             
+                    AExample['Next3DayClosePriceIncrease15'] = highPricePercent > 15
+                    AExample['Next3DayClosePriceIncrease17'] = highPricePercent > 17
+                    AExample['Next3DayClosePriceIncrease20'] = highPricePercent > 20
+                    AExample['Next3DayClosePriceIncrease25'] =highPricePercent  >25               
+                    AExample['Next3DayClosePriceDecrease3'] = lowPricePercent< -3  
+                    AExample['Next3DayClosePriceDecrease5'] = lowPricePercent< -5  
+                    AExample['Next3DayClosePriceDecrease7'] = lowPricePercent< -7  
+                    AExample['Next3DayClosePriceDecrease9'] = lowPricePercent< -9  
+                    AExample['Next3DayClosePriceDecrease11'] = lowPricePercent<-11
+                    AExample['Next3DayClosePriceDecrease13'] = lowPricePercent<-13
+                    AExample['Next3DayClosePriceDecrease15'] = lowPricePercent<-15
+                    AExample['Next3DayClosePriceDecrease17'] = lowPricePercent<-17
+                    AExample['Next3DayClosePriceDecrease20'] = lowPricePercent<-20
+                    AExample['Next3DayClosePriceDecrease25'] = lowPricePercent< -25 
+                if currentRowNum >4:
+                    regin = df.iloc[currentRowNum - 5 : currentRowNum]                    
+                    highPricePercent = (regin['HighPrice'].max() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    lowPricePercent = (regin['LowPrice'].min() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    
+                    AExample['Next5DayHighPriceIncrease'] =  highPricePercent >  0
+                    AExample['Next5DayHighPriceIncrease3'] = highPricePercent >  3
+                    AExample['Next5DayHighPriceIncrease5'] = highPricePercent >  5
+                    AExample['Next5DayHighPriceIncrease7'] = highPricePercent >  7
+                    AExample['Next5DayHighPriceIncrease9'] = highPricePercent >  9
+                    AExample['Next5DayHighPriceIncrease11'] = highPricePercent > 11
+                    AExample['Next5DayHighPriceIncrease13'] = highPricePercent > 13                                                                                                
+                    AExample['Next5DayHighPriceIncrease15'] = highPricePercent > 15
+                    AExample['Next5DayHighPriceIncrease17'] = highPricePercent > 17
+                    AExample['Next5DayHighPriceIncrease20'] = highPricePercent > 20
+                    AExample['Next5DayHighPriceIncrease25'] =highPricePercent >  25                
+                    AExample['Next5DayHighPriceDecrease3'] = lowPricePercent< -3 
+                    AExample['Next5DayHighPriceDecrease5'] = lowPricePercent< -5 
+                    AExample['Next5DayHighPriceDecrease7'] = lowPricePercent< -7 
+                    AExample['Next5DayHighPriceDecrease9'] = lowPricePercent< -9 
+                    AExample['Next5DayHighPriceDecrease11'] = lowPricePercent< -11 
+                    AExample['Next5DayHighPriceDecrease13'] = lowPricePercent< -13
+                    AExample['Next5DayHighPriceDecrease15'] = lowPricePercent< -15
+                    AExample['Next5DayHighPriceDecrease17'] = lowPricePercent< -17
+                    AExample['Next5DayHighPriceDecrease20'] = lowPricePercent< -20
+                    AExample['Next5DayHighPriceDecrease25'] =lowPricePercent <-25
+                                                                               
+                    highPricePercent = (regin['ClosePrice'].max() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    lowPricePercent = (regin['ClosePrice'].min() - row['ClosePrice']) / row['ClosePrice'] * 100
+                    AExample['Next5DayClosePriceIncrease'] =  highPricePercent > 0 
+                    AExample['Next5DayClosePriceIncrease3'] = highPricePercent > 3 
+                    AExample['Next5DayClosePriceIncrease5'] = highPricePercent > 5 
+                    AExample['Next5DayClosePriceIncrease7'] = highPricePercent > 7 
+                    AExample['Next5DayClosePriceIncrease9'] = highPricePercent > 9 
+                    AExample['Next5DayClosePriceIncrease11'] = highPricePercent > 11
+                    AExample['Next5DayClosePriceIncrease13'] = highPricePercent > 13                                                                                             
+                    AExample['Next5DayClosePriceIncrease15'] = highPricePercent > 15
+                    AExample['Next5DayClosePriceIncrease17'] = highPricePercent > 17
+                    AExample['Next5DayClosePriceIncrease20'] = highPricePercent > 20
+                    AExample['Next5DayClosePriceIncrease25'] =highPricePercent  >25               
+                    AExample['Next5DayClosePriceDecrease3'] = lowPricePercent< -3  
+                    AExample['Next5DayClosePriceDecrease5'] = lowPricePercent< -5  
+                    AExample['Next5DayClosePriceDecrease7'] = lowPricePercent< -7  
+                    AExample['Next5DayClosePriceDecrease9'] = lowPricePercent< -9  
+                    AExample['Next5DayClosePriceDecrease11'] = lowPricePercent<-11
+                    AExample['Next5DayClosePriceDecrease13'] = lowPricePercent<-13
+                    AExample['Next5DayClosePriceDecrease15'] = lowPricePercent<-15
+                    AExample['Next5DayClosePriceDecrease17'] = lowPricePercent<-17
+                    AExample['Next5DayClosePriceDecrease20'] = lowPricePercent<-20
+                    AExample['Next5DayClosePriceDecrease25'] = lowPricePercent< -25                     
+                #getColumns(AExample.iloc[0])
+                #if not tableCreated:
+                #    tableCreated = createTable(AExample,'dayTrainExample8',cursor,conn)
                 
                 insertAExample(AExample.iloc[0],cursor,conn,index,code)
                                                                                                                                   
@@ -157,7 +282,7 @@ def getColumns(row):
     return names
 
 def insertAExample(row,cursor,conn,Date,Code):
-    prefix = 'insert into dayTrainExample(Date,code'
+    prefix = 'insert into dayTrainExample8(Date,code'
     surfix = ') values(%s,%s'
     values = [str(Date),str(Code)]
     for columnName in row.index:
@@ -183,11 +308,11 @@ def createTable(df, tableName,cursor,conn):
         prefix = 'CREATE TABLE `'+tableName+ '` ( `id` INT NOT NULL AUTO_INCREMENT,'
         surfix = '  PRIMARY KEY (`id`),  UNIQUE INDEX `id_UNIQUE` (`id` ASC));'
         sql=prefix
-        sql += '`Code` VARCHAR(45) NOT NULL,' 
         sql += '`Date` VARCHAR(45) NOT NULL,' 
+        sql += '`Code` DECIMAL(18,3) NOT NULL,'         
         for columnName in df.columns:
-            if columnName[0:6] == 'NextDay':
-                sql += '`'+columnName+'`tinyint(1) NOT NULL,'
+            if columnName.startswith('Next'):
+                sql += '`'+columnName+'`tinyint(1),'
             else:
                 sql += '`'+columnName+'` DECIMAL(18,3) NOT NULL,'
         sql +=surfix
@@ -207,17 +332,24 @@ if __name__ == '__main__':
                            charset="utf8")
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
 
-    #cursor.execute('select code from (SELECT code,count(*) as numbers FROM stock.day group by code ) as counttable where numbers > 60')
-    #result = cursor.fetchall()
-    #existed = pd.DataFrame(result)
-    existed =set(['600016']) #set(existed['code'])
-    for code in existed:
-        workQueue.put(code)
+    cursor.execute('select code from (SELECT code,count(*) as numbers FROM stock.dayTrainExample8 group by code ) as counttable')
+    result = cursor.fetchall()
+    result = pd.DataFrame(result)
+    existed = set(result['code'])
+
+    cursor.execute('select code from (SELECT code,count(*) as numbers FROM stock.day group by code ) as counttable where numbers > 60')
+    result = cursor.fetchall()
+    result = pd.DataFrame(result)
+    #existed =set(['000001']) 
+    codes = set(result['code'])
+    for code in codes:
+        if not np.float64(code) in existed:
+            workQueue.put(code)
     
     cursor.close()
     conn.close()
     
-    for i in range(10):
+    for i in range(16):
         t = threading.Thread(target=importDataFromCSVToDB, args=(workQueue,))
         t.start()
         time.sleep(random.randint(low=0, high=10))

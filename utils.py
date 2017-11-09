@@ -105,8 +105,8 @@ def trainXY(X_train,y_train, X_test,y_test,x_predict, y_predict, batch_size, net
                 
         test_acc, test_1acc = evaluate_accuracy(data_iter(X_test,y_test,batch_size), net, ctx)
         predict_acc, predict_1acc = evaluate_accuracy(data_iter(x_predict,y_predict,batch_size), net, ctx)
-        print("Epoch %d. Loss: %f, Train acc: %f, Test acc: %f, Train True Value acc: %f, Test True Value acc: %f, Predict Acc: %f, Predict True Acc:%f" % (
-            epoch, train_loss/batch, train_acc/batch, test_acc,train_1acc / batch, test_1acc,predict_acc,predict_1acc
+        print("Epoch %d. Loss: %f, Train acc: %f,Train True Value acc: %f, Test acc: %f, Test True Value acc: %f, Predict Acc: %f, Predict True Acc:%f" % (
+            epoch, train_loss/batch, train_acc/batch,train_1acc / batch, test_acc, test_1acc,predict_acc,predict_1acc
         ))
 
 
@@ -115,7 +115,7 @@ def train(train_data, test_data, net, loss, trainer, ctx, num_epochs, print_batc
     for epoch in range(num_epochs):
         train_loss = 0.
         train_acc = 0.
-        batch = 0
+        batch = 0.
         for data, label in train_data:
             label = label.as_in_context(ctx)
             with autograd.record():
@@ -126,15 +126,16 @@ def train(train_data, test_data, net, loss, trainer, ctx, num_epochs, print_batc
             trainer.step(data.shape[0])
 
             train_loss += nd.mean(L).asscalar()
-            train_acc += accuracy(output, label)
-
+            temp_acc, temp1_acc = accuracy(output, label)
+            train_acc +=temp_acc
+            
             batch += 1
             if print_batches and batch % print_batches == 0:
                 print("Batch %d. Loss: %f, Train acc %f" % (
                     batch, train_loss/batch, train_acc/batch
                 ))
 
-        test_acc = evaluate_accuracy(test_data, net, ctx)
+        test_acc,test1_acc = evaluate_accuracy(test_data, net, ctx)
         print("Epoch %d. Loss: %f, Train acc %f, Test acc %f" % (
             epoch, train_loss/batch, train_acc/batch, test_acc
         ))
