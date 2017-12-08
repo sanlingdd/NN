@@ -8,6 +8,7 @@ import os
 import threading
 from numpy import random
 import time
+from datetime import date, datetime 
 from multiprocessing import Queue
 import urllib
 import zlib
@@ -15,6 +16,8 @@ import json
 import requests
 import traceback
 
+pauseDate = '2017-10-20'
+tableName = 'daytrainexample8'
 
 def getTrainingExample(date,df):
     #trading days
@@ -25,7 +28,7 @@ def getTrainingExample(date,df):
     df = df[df.index <= date].head(days)
     if len(df) < days:
         return None
-    newdf = pd.DataFrame(data=[date],columns=['Date'])
+    newdf = pd.DataFrame(data=[date],columns=['DateString'])
     begin = False
     Dayiter = 1
     WeekStartLineNum = None
@@ -52,7 +55,7 @@ def getTrainingExample(date,df):
             if(WeekIter == Num_Weeks):
                 break
             WeekIter+=1
-    newdf = newdf.drop(['Date'], axis=1)
+    newdf = newdf.drop(['DateString'], axis=1)
     if len(newdf.columns) == (9 * (Num_Days+Num_Weeks)):
         return newdf
     else:
@@ -76,7 +79,8 @@ def getTradeInfoInRange(dfd):
 
 def composeADay(df,iter,row):
     for columnName in row.index:
-        df['Day'+str(iter)+columnName] = row[columnName]
+        if columnName != 'Date':
+            df['Day'+str(iter)+columnName] = row[columnName]
 
 def composeAWeek(df,iter,newdf):
     for columnName in newdf.columns:
@@ -97,19 +101,31 @@ def importDataFromCSVToDB(workQueue):
         #cursor.execute(sql, (code,))
         #
         #table_rows = cursor.fetchall()
-        df = pd.read_sql("SELECT Date, OpenPrice,ClosePrice,Diff,Percent,LowPrice, HighPrice,Volume, Amount,Exchange FROM DAY where CODE = %s", conn, index_col='Date',params=(code,),columns=['Date', 'OpenPrice','ClosePrice','Diff','Percent', 'LowPrice', 'HighPrice',  'Volume', 'Amount','Exchange'])
+        df = pd.read_sql("SELECT DateString,Date, OpenPrice,ClosePrice,Diff,Percent,LowPrice, HighPrice,Volume, Amount,Exchange FROM DAY where CODE = %s and date > 1451577600", conn, index_col='DateString',params=(code,),columns=['DateString','Date', 'OpenPrice','ClosePrice','Diff','Percent', 'LowPrice', 'HighPrice',  'Volume', 'Amount','Exchange'])
         #df.set_index(['Date'])
+        if len(df) == 0:
+            break 
         df = df.sort_index(ascending=False)
         #484 is two days' data, 60 days is one training example length
         #ten days buffer
         tailTarget = min(242*5 + 60, len(df))
         df = df.iloc[0:tailTarget]
-        maxLines = df.index.get_loc(df.index.min())
+        maxLines = 0
+        try:
+            maxLines = df.index.get_loc(df.index.min())
+        except Exception:
+                print(sys.exc_info())
+                print(traceback.print_exc())
+            
         if maxLines < 60:
             continue
         for index, row in df.iterrows():
             currentRowNum = df.index.get_loc(index)
             if currentRowNum > 0 and maxLines - currentRowNum > 60:
+                if datetime.strptime(index,'%Y-%m-%d').timestamp() > 1508428800:
+                    continue;
+                if datetime.strptime(index,'%Y-%m-%d').timestamp() < 1507824000:
+                    break;                
                 newdf = df.iloc[currentRowNum:currentRowNum + 60]
                 AExample = getTrainingExample(index,newdf)
                 if AExample is None:
@@ -281,10 +297,13 @@ def getColumns(row):
         names += ','+columnName
     return names
 
+from datetime import date,datetime
 def insertAExample(row,cursor,conn,Date,Code):
-    prefix = 'insert into dayTrainExample8(Date,code'
-    surfix = ') values(%s,%s'
-    values = [str(Date),str(Code)]
+    prefix = 'insert into {}(DateString,Date,code'.format(tableName)
+    surfix = ') values(%s,%s,%s'
+    stockdate = datetime.strptime(Date,'%Y-%m-%d')
+    stockDateLong = stockdate.timestamp()
+    values = [str(Date),str(stockDateLong),str(Code)]
     for columnName in row.index:
         if(isinstance(row[columnName],np.float64)):
             values.append(str(row[columnName]))
@@ -308,7 +327,8 @@ def createTable(df, tableName,cursor,conn):
         prefix = 'CREATE TABLE `'+tableName+ '` ( `id` INT NOT NULL AUTO_INCREMENT,'
         surfix = '  PRIMARY KEY (`id`),  UNIQUE INDEX `id_UNIQUE` (`id` ASC));'
         sql=prefix
-        sql += '`Date` VARCHAR(45) NOT NULL,' 
+        sql += '`Date` VARCHAR(45) NOT NULL,'
+        sql += '`DateLong` DECIMAL(18) NOT NULL,' 
         sql += '`Code` DECIMAL(18,3) NOT NULL,'         
         for columnName in df.columns:
             if columnName.startswith('Next'):
@@ -331,25 +351,27 @@ if __name__ == '__main__':
                            database="stock",
                            charset="utf8")
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-
-    cursor.execute('select code from (SELECT code,count(*) as numbers FROM stock.dayTrainExample8 group by code ) as counttable')
+    
+    cursor.execute('SELECT code FROM stock.Bank1PercentPredict group by code')
     result = cursor.fetchall()
-    result = pd.DataFrame(result)
-    existed = set(result['code'])
+    existed = []
+    if len(result) != 0:
+        result = pd.DataFrame(result)
+        existed = set(result['code'])
 
-    cursor.execute('select code from (SELECT code,count(*) as numbers FROM stock.day group by code ) as counttable where numbers > 60')
+    cursor.execute('SELECT code FROM stock.daytrainexample8 group by code')
     result = cursor.fetchall()
-    result = pd.DataFrame(result)
-    #existed =set(['000001']) 
-    codes = set(result['code'])
+    codes = []
+    if len(result) != 0:
+        result = pd.DataFrame(result)
+        codes = set(result['code'])
     for code in codes:
-        if not np.float64(code) in existed:
-            workQueue.put(code)
+        workQueue.put(code)
     
     cursor.close()
     conn.close()
     
-    for i in range(16):
+    for i in range(32):
         t = threading.Thread(target=importDataFromCSVToDB, args=(workQueue,))
         t.start()
         time.sleep(random.randint(low=0, high=10))

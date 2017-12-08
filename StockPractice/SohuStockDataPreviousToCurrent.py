@@ -14,6 +14,7 @@ import zlib
 import json
 import requests
 import traceback
+from datetime import datetime, date
 
 def tryconvert(value):
     try:
@@ -34,11 +35,14 @@ def importDataFromCSVToDB(workQueue):
     
 
     while(not workQueue.empty()):
-        code = workQueue.get()   
-        code = code.zfill(6)                 
+        code = workQueue.get()
+        codeStr = str(code)   
+        codeStr = codeStr[0:codeStr.find('.')]
+        codeStr = codeStr.zfill(6)                 
         site = 'http://q.stock.sohu.com/hisHq?code=cn_{}&start={}&end={}&stat=1&order=D&period=d&rt=json';
-        
-        site = site.format(code,'19890101','20171020')
+        #current 20171020
+        #From 20171021 To 20171117
+        site = site.format(codeStr,'20171021','20171117')
         response =requests.get(site)
         
         html = response.text
@@ -65,7 +69,7 @@ def importDataFromCSVToDB(workQueue):
             
         for index, row in df.iterrows():
             try:
-                cursor.execute('insert into day(Date,OpenPrice,ClosePrice,Diff,Percent,LowPrice,HighPrice,Volume,Amount,Exchange,code) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', [row['Date'], row['OpenPrice'], row['ClosePrice'], row['Diff'], row['Percent'], row['LowPrice'], row['HighPrice'], row['Volume'], row['Amount'],row['Exchange'], str(code)])
+                cursor.execute('insert into newday(DateString,Date,OpenPrice,ClosePrice,Diff,Percent,LowPrice,HighPrice,Volume,Amount,Exchange,code) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', [row['Date'],datetime.strptime(row['Date'],'%Y-%m-%d').timestamp(),row['OpenPrice'], row['ClosePrice'], row['Diff'], row['Percent'], row['LowPrice'], row['HighPrice'], row['Volume'], row['Amount'],row['Exchange'], code])
                 conn.commit()
             except Exception:
                 print(sys.exc_info())
@@ -81,6 +85,7 @@ def importDataFromCSVToDB(workQueue):
 workQueue = Queue(5000)
 if __name__ == '__main__':
     lock = threading.Lock() 
+    
     conn = pymysql.Connect(host="localhost",
                            port=3306,
                            user="root",
@@ -88,25 +93,20 @@ if __name__ == '__main__':
                            database="stock",
                            charset="utf8")
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-
-    df = pd.read_csv("data\stockcode.csv", header=None,
-                 names=['Code'],
-                 dtype={'Code':str }
-                 )
-        
-    codes = list(df['Code'])
-    cursor.execute('SELECT code FROM stock.day group by code')
+    
+    cursor.execute('SELECT code FROM stock.newday group by code')
     result = cursor.fetchall()
-    existed = pd.DataFrame(result)
-    existed = set(existed['code'])
-    for code in codes:
-        if str(code) not in existed:
-            workQueue.put(code)
+    df = pd.DataFrame(result)
+
     
     cursor.close()
     conn.close()
-    
-    for i in range(50):
+        
+    codes = list(df['code'])
+    for code in codes:
+        workQueue.put(code)
+        
+    for i in range(1):
         t = threading.Thread(target=importDataFromCSVToDB, args=(workQueue,))
         t.start()
         time.sleep(random.randint(low=0, high=10))

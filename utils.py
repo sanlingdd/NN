@@ -75,8 +75,7 @@ def data_iter(X,y, batch_size):
         j = nd.array(idx[i:min(i+batch_size,len(X))])
         yield nd.take(X, j), nd.take(y, j)
 
-
-def trainXY(X_train,y_train, X_test,y_test,x_predict, y_predict, batch_size, net, loss, trainer, ctx, num_epochs, print_batches=None):
+def trainXY(X_train,y_train, X_test,y_test,x_predict, y_predict, batch_size, net, loss, trainer, ctx, num_epochs,name,print_batches=None):
     """Train a network"""
     for epoch in range(num_epochs):
         train_loss = 0.
@@ -108,6 +107,8 @@ def trainXY(X_train,y_train, X_test,y_test,x_predict, y_predict, batch_size, net
         print("Epoch %d. Loss: %f, Train acc: %f,Train True Value acc: %f, Test acc: %f, Test True Value acc: %f, Predict Acc: %f, Predict True Acc:%f" % (
             epoch, train_loss/batch, train_acc/batch,train_1acc / batch, test_acc, test_1acc,predict_acc,predict_1acc
         ))
+        
+        net.save_params("data/{}/{}-{}".format(name,name,str(epoch)))
 
 
 def train(train_data, test_data, net, loss, trainer, ctx, num_epochs, print_batches=None):
