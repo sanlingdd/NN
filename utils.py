@@ -4,6 +4,7 @@ from mxnet import nd
 from mxnet import image
 import mxnet as mx
 import random
+from datetime import datetime
 
 def SGD(params, lr):
     for param in params:
@@ -137,6 +138,6 @@ def train(train_data, test_data, net, loss, trainer, ctx, num_epochs, print_batc
                 ))
 
         test_acc,test1_acc = evaluate_accuracy(test_data, net, ctx)
-        print("Epoch %d. Loss: %f, Train acc %f, Test acc %f" % (
-            epoch, train_loss/batch, train_acc/batch, test_acc
+        print("Epoch %d. Loss: %f, Train acc %f, Test acc %f at %s" % (
+            epoch, train_loss/batch, train_acc/batch, test_acc,datetime.now()
         ))

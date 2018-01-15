@@ -11,7 +11,7 @@ import utils
 from mxnet.gluon import nn
 from mxnet import init
 
-tableName = 'SZ50Bank5D3'
+tableName = 'SZ50Bank5D3C'
 predictCategory = 'Next5DayClosePriceIncrease3'
 
 conn = pymysql.Connect(host="localhost",
@@ -36,12 +36,9 @@ def getSQLColumnString(columns):
 dfMean= pd.read_csv("data\MEAN.csv")
 dfStd= pd.read_csv("data\STD.csv")    
 
-df = pd.read_sql("SELECT {} from {} where databalance < 5".format(getSQLColumnString(featureNames + predictNames),tableName), 
+df = pd.read_sql("SELECT {} from {}".format(getSQLColumnString(featureNames + predictNames),tableName), 
                  conn, 
                  columns=featureNames + predictNames)
-
-cursor.close()
-conn.close()
 
 for columnName in featureNames:
     if not columnName.startswith('Next'):
@@ -65,7 +62,7 @@ num_test = len(all_X) - num_train;
 y_train = nd.array(all_X[predictCategory][:num_train].as_matrix())
 y_test = nd.array(all_X[predictCategory][num_train:].as_matrix())
 
-all_X = all_X.loc[:,'Day1OpenPrice':'Week4Exchange']
+all_X = all_X.loc[:,featureNames]
 X_train = nd.array(all_X[:num_train].as_matrix())
 X_test = nd.array(all_X[num_train:].as_matrix())
 
@@ -78,25 +75,33 @@ for columnName in featureNames:
        df[columnName] = (df[columnName] - dfMean[columnName][0]) / dfStd[columnName][0]
 
 y_Predict = nd.array(df[predictCategory][:].as_matrix())
-X_Predict = nd.array(df.loc[:,'Day1OpenPrice':'Week4Exchange'][:].as_matrix())
+X_Predict = nd.array(df.loc[:,featureNames][:].as_matrix())
 
+
+cursor.close()
+conn.close()
+
+
+def square_loss(yhat, y):
+    # 注意这里我们把y变形成yhat的形状来避免自动广播
+    return (yhat - y.reshape(yhat.shape)) ** 2
+
+from mxnet.gluon import nn
 net = nn.Sequential()
 with net.name_scope():
-    net.add(
-        nn.Flatten(),
-        nn.Dense(512, activation="relu"),
-        net.add(nn.BatchNorm(axis=1)),
-        nn.Dense(512, activation="relu"),
-        net.add(nn.BatchNorm(axis=1)),
-        nn.Dense(512, activation="relu"),
-        net.add(nn.BatchNorm(axis=1)),
-        nn.Dense(512, activation="relu"),
-        net.add(nn.BatchNorm(axis=1)),
-        nn.Dense(512, activation="relu"),
-        net.add(nn.BatchNorm(axis=1)),
-        nn.Dense(512, activation="relu"),
-        nn.Dense(2)
-    )
+    net.add(nn.Flatten())
+    net.add(nn.Dense(512, activation="relu"))
+    net.add(nn.BatchNorm(axis=1))
+    net.add(nn.Dense(512, activation="relu"))
+    net.add(nn.BatchNorm(axis=1))
+    net.add(nn.Dense(512, activation="relu"))
+    #net.add(nn.BatchNorm(axis=1))
+    #net.add(nn.Dense(512, activation="relu"))
+    #net.add(nn.BatchNorm(axis=1))
+    #net.add(nn.Dense(512, activation="relu"))
+    #net.add(nn.BatchNorm(axis=1))
+    #net.add(nn.Dense(512, activation="relu"))
+    net.add(nn.Dense(2))
 
 #dataset_train = gluon.data.ArrayDataset(X_train, y_train)
 #train_data = gluon.data.DataLoader(mnist_train, batch_size, shuffle=True)
@@ -107,7 +112,7 @@ net.initialize(ctx=ctx, init=init.Xavier())
 
 loss = gluon.loss.SoftmaxCrossEntropyLoss()
 trainer = gluon.Trainer(net.collect_params(),
-                        'sgd', {'learning_rate': 0.01})
+                        'sgd', {'learning_rate': 0.1})
 
 batch_size = 32
 utils.trainXY(X_train,y_train, X_test,y_test,X_Predict,y_Predict, batch_size, net, loss,trainer, ctx, num_epochs=20,name = 'Standardbanktraining1')

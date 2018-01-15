@@ -17,7 +17,7 @@ import requests
 import traceback
 
 pauseDate = '2017-10-20'
-tableName = 'daytrainexample8'
+tableName = 'bank1percentpredict'
 
 def getTrainingExample(date,df):
     #trading days
@@ -122,10 +122,8 @@ def importDataFromCSVToDB(workQueue):
         for index, row in df.iterrows():
             currentRowNum = df.index.get_loc(index)
             if currentRowNum > 0 and maxLines - currentRowNum > 60:
-                if datetime.strptime(index,'%Y-%m-%d').timestamp() > 1508428800:
-                    continue;
-                if datetime.strptime(index,'%Y-%m-%d').timestamp() < 1507824000:
-                    break;                
+                if datetime.strptime(index,'%Y-%m-%d').timestamp() <= 1508428800:
+                    break;
                 newdf = df.iloc[currentRowNum:currentRowNum + 60]
                 AExample = getTrainingExample(index,newdf)
                 if AExample is None:
