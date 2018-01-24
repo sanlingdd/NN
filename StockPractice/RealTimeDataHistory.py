@@ -1,23 +1,22 @@
 #encoding=UTF-8
-import tushare as ts
 from pymongo import MongoClient
 import sys
 sys.path.append('..')
 import pandas as pd
 import json
-from datetime import datetime
 import threading
 import time
 from datetime import date, datetime 
 from multiprocessing import Queue
 from numpy import random
 import pymysql
-import json
 import tushare as ts
 from tushare.stock import cons as cs
 from io import StringIO
 import urllib
-from datetime import datetime
+import math
+import traceback
+
 
 
 def get_tick_data_history_sina(date,code,proxy,port,pause):
@@ -34,18 +33,26 @@ def get_tick_data_history_sina(date,code,proxy,port,pause):
     return df
 
 def getTickDataForStockIntoMongo(daysQueue,proxyQueue,db):
-    while(not daysQueue.empty()):
-        date,code = daysQueue.get()        
-        proxy,port = proxyQueue.get()
-        df = get_tick_data_history_sina(date,code,proxy,port,pause=0.01)
-        if len(df) < 10:
-            continue
-        
-        df['time'] = df['time'].apply(lambda x: datetime.strptime(date +' ' + x,'%Y-%m-%d %H:%M:%S').timestamp())
-        db.Tick600606Data.insert(json.loads(df.to_json(orient='records')))
-        time.sleep(6000)
-
-
+    while(True):
+        time.sleep(1)
+        while(not daysQueue.empty()):
+            date,code = daysQueue.get()        
+            proxy,port = proxyQueue.get()
+            try:
+                df = get_tick_data_history_sina(date,code,proxy,port,pause=30)
+                proxyQueue.put((proxy,port))
+                if len(df) < 10:
+                    continue
+                
+                df['time'] = df['time'].apply(lambda x: datetime.strptime(date +' ' + x,'%Y-%m-%d %H:%M:%S').timestamp())
+                df['code'] = code 
+                db.Tick600606Data.insert(json.loads(df.to_json(orient='records')))
+                time.sleep(1)                
+            except:
+                traceback.print_exc()
+                daysQueue.put((date,code))
+                proxyQueue.put((proxy,port))
+                continue  
 
 def dayMaintainThread(StockworkQueue,daysQueue):
     conn = pymysql.Connect(host="localhost",
@@ -54,12 +61,16 @@ def dayMaintainThread(StockworkQueue,daysQueue):
                            password="Initial0",
                            database="stock",
                            charset="utf8")
-    cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)    
+    cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+    previousStockCode=None    
     while not StockworkQueue.empty():  
-        time.sleep(random.randint(low=0, high=100000))
+        
         if daysQueue.empty(): 
+            if previousStockCode != None:
+                db.StockCodeFinished.insertOne({ 'CodeString': previousStockCode})
             code = StockworkQueue.get()
-            cursor.execute('SELECT DateString FROM stock.day group by code={}'.format(code))
+            previousStockCode = code
+            cursor.execute('SELECT DateString FROM stock.day where code={}'.format(code))
             result = cursor.fetchall()
             allDays = []
             if len(result) != 0:
@@ -67,7 +78,8 @@ def dayMaintainThread(StockworkQueue,daysQueue):
                 allDays = set(result['DateString'])
             for day in allDays:
                 daysQueue.put((day,code))
-
+    
+        time.sleep(random.randint(low=0, high=1))
     cursor.close()
     conn.close()
 
@@ -94,15 +106,19 @@ if __name__ == '__main__':
 
     client = MongoClient('localhost', 27017)
     db = client.stock
-    cursor =db.TradeDays.find().sort([('CodeString',-1)])
+    cursor =db.StockCodeFinished.find().sort([('CodeString',-1)])
     # Expand the cursor and construct the DataFrame
-    daysdf =  pd.DataFrame(list(cursor))    
-    existedCodes = set(daysdf['CodeString'])
+    codesdf =  pd.DataFrame(list(cursor))    
+    existedCodes =[]
+    if len(codesdf) != 0:
+        existedCodes = set(codesdf['CodeString'])
     i = 0
-    for code in allCode:
-        if code not in existedCodes:
-            StockworkQueue.put(code)
+#     for code in allCode:
+#         if code not in existedCodes:
+#             code = str(math.floor(code)).zfill(6)
+#             StockworkQueue.put(code)
     
+    StockworkQueue.put('600606')
     proxiesList = [('proxy.pvgl.sap.corp',8080),('proxy.sha.sap.corp',8080),('proxy.pek.sap.corp',8080),('proxy.hkg.sap.corp',8080),('proxy.sin.sap.corp',8080),('proxy.syd.sap.corp',8080),('proxy.tyo.sap.corp',8080),('proxy.wdf.sap.corp',8080),('proxy.pal.sap.corp',8080),('proxy.phl.sap.corp',8080), ('proxy.osa.sap.corp',8080)] 
     for proxy in proxiesList:
         proxyQueue.put(proxy)
@@ -110,12 +126,12 @@ if __name__ == '__main__':
         
     t = threading.Thread(target=dayMaintainThread, args=(StockworkQueue,daysQueue))
     t.start()
-    time.sleep(random.randint(low=0, high=10))
+    time.sleep(random.randint(low=0, high=1))
     
-    for i in range(1):
+    for i in range(10):
             tday = threading.Thread(target=getTickDataForStockIntoMongo, args=(daysQueue,proxyQueue,db))
             tday.start()
-            time.sleep(random.randint(low=0, high=10))
+            time.sleep(random.randint(low=0, high=1))
 
 
 
