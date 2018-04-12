@@ -5,42 +5,52 @@ from mxnet import image
 import mxnet as mx
 import random
 from datetime import datetime
+from mxnet import ndarray as nd
+
 
 def SGD(params, lr):
     for param in params:
         param[:] = param - lr * param.grad
 
-def accuracy(output, label):
+def accuracy(output, label, threshold=0.95):
     predict = output.argmax(axis=1)
+    confidences = nd.softmax(output).max(axis=1)
+    
     correct = 0.
-    iter = 0
-    for value in predict:
-        if value == 1:
-            if label[iter] == value:
-                correct+=1
-        
-        iter+=1
+    predictOne = 0.
+    for value, confidence,labelelement in zip(predict,confidences,label):
+        if value == 1 and confidence >= threshold:
+            predictOne += 1
+            if labelelement == value:
+                correct += 1
+            
     #1 Precise
     truePrecise = 0.
-    if nd.sum(predict) != 0:
-        truePrecise = correct / nd.sum(predict).asscalar()
-    return nd.mean(predict==label).asscalar(), truePrecise
+    if predictOne != 0.:
+        truePrecise = correct / predictOne
+    
+    return nd.mean(predict==label).asscalar(), truePrecise, predictOne != 0. 
 
 def evaluate_accuracy(data_iterator, net, ctx=mx.cpu()):
     acc = 0.
     trueacc =0.
     total = 0
+    trueTotal=0
     for data, label in data_iterator:
         output = net(data.as_in_context(ctx))
-        tacc, t1acc= accuracy(output, label.as_in_context(ctx))
+        tacc, t1acc, Predicted= accuracy(output, label.as_in_context(ctx))
         acc += tacc
         trueacc += t1acc
         total += 1
+        if Predicted:
+            trueTotal+=1
     
-    if total == 0 :
-        return acc
-    
-    return acc / total, trueacc / total
+    if total == 0:
+        return 0., 0.
+    if trueTotal ==0:
+        return acc / total, 0.
+
+    return acc / total, trueacc / trueTotal
 
 def load_data_fashion_mnist(batch_size, resize=None):
     """download the fashion mnist dataest and then load into memory"""
@@ -83,6 +93,7 @@ def trainXY(X_train,y_train, X_test,y_test,x_predict, y_predict, batch_size, net
         train_acc = 0.
         train_1acc = 0.
         batch = 0
+        trueBatch = 0
         for data, label in data_iter(X_train,y_train,batch_size):
             label = label.as_in_context(ctx)
             with autograd.record():
@@ -93,18 +104,21 @@ def trainXY(X_train,y_train, X_test,y_test,x_predict, y_predict, batch_size, net
             trainer.step(data.shape[0])
 
             train_loss += nd.mean(L).asscalar()
-            ttrain_acc,ttrain_1acc = accuracy(output, label)
+            ttrain_acc,ttrain_1acc,Predicted = accuracy(output, label)
             train_acc +=ttrain_acc
-            train_1acc+=ttrain_1acc
-
+            if Predicted:
+                train_1acc+=ttrain_1acc
+                trueBatch+=1
+                
             batch += 1
             if print_batches and batch % print_batches == 0:
-                print("Batch %d. Loss: %f, Train acc %f" % (
-                    batch, train_loss/batch, train_acc/batch
+                print("Batch %d. Loss: %f, Train acc %f, Train True acc %f" % (
+                    batch, train_loss/batch, train_acc/batch, ttrain_1acc / trueBatch
                 ))
                 
         test_acc, test_1acc = evaluate_accuracy(data_iter(X_test,y_test,batch_size), net, ctx)
         predict_acc, predict_1acc = evaluate_accuracy(data_iter(x_predict,y_predict,batch_size), net, ctx)
+        
         print("Epoch %d. Loss: %f, Train acc: %f,Train True Value acc: %f, Test acc: %f, Test True Value acc: %f, Predict Acc: %f, Predict True Acc:%f" % (
             epoch, train_loss/batch, train_acc/batch,train_1acc / batch, test_acc, test_1acc,predict_acc,predict_1acc
         ))

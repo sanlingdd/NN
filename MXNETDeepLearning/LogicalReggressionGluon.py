@@ -39,9 +39,9 @@ def evaluate_accuracy(data_iterator, net):
         acc += accuracy(output, label)
     return acc / len(data_iterator)
 
-data, label = mnist_train[0:9]
-show_images(data)
-print(get_text_labels(label))
+#data, label = mnist_train[0:9]
+#show_images(data)
+#print(get_text_labels(label))
 
 
 batch_size = 1024
@@ -61,7 +61,7 @@ trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate': 0.01,'wd'
 
 from mxnet import autograd
 
-for epoch in range(20):
+for epoch in range(10):
     train_loss = 0.
     train_acc = 0.
     for data, label in train_data:
@@ -83,6 +83,13 @@ data, label = mnist_test[0:9]
 print('true labels')
 print(get_text_labels(label))
 
-predicted_labels = net(data).argmax(axis=1)
+predicted = nd.softmax(net(data))
+predicted_labels = predicted.argmax(axis=1)
+predicted_confidence = predicted.max(axis=1)
 print('predicted labels')
 print(get_text_labels(predicted_labels.asnumpy()))
+print(predicted_confidence)
+
+show_images(data)
+print(get_text_labels(label))
+print('end')

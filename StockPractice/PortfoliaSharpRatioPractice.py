@@ -14,10 +14,10 @@ import traceback
 import os
 
 
-codes = ['002466','600606','600848','000016']
+codes = ['002343']
 
 for code in codes:
-    df = ts.get_hist_data(code,start='2015-01-01',end='2017-12-31')
+    df = ts.get_hist_data(code,ktype='5')
     filename = 'data/{}'.format(code);
     if os.path.exists(filename):
         df.to_csv(filename, mode='a', header=None)

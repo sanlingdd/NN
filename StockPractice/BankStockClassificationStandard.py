@@ -10,9 +10,11 @@ import pymysql
 import utils
 from mxnet.gluon import nn
 from mxnet import init
+from mxnet import ndarray as nd
 
-tableName = 'SZ50Bank5D3C'
-predictCategory = 'Next5DayClosePriceIncrease3'
+
+tableName = 'SZ50Bank5D3'
+predictCategory = 'Next5DayHighPriceIncrease'
 
 conn = pymysql.Connect(host="localhost",
                        port=3306,
@@ -111,11 +113,14 @@ ctx = utils.try_gpu()
 net.initialize(ctx=ctx, init=init.Xavier())
 
 loss = gluon.loss.SoftmaxCrossEntropyLoss()
-trainer = gluon.Trainer(net.collect_params(),
-                        'sgd', {'learning_rate': 0.1})
+trainer = gluon.Trainer(net.collect_params(),'sgd', {'learning_rate': 0.01})
 
 batch_size = 32
 utils.trainXY(X_train,y_train, X_test,y_test,X_Predict,y_Predict, batch_size, net, loss,trainer, ctx, num_epochs=20,name = 'Standardbanktraining1')
+
+
+
+
 
 
 

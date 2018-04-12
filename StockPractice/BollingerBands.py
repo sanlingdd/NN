@@ -88,7 +88,7 @@ def get_bollinger_bands(rm, rstd):
 
 def test_run():
     # Read data
-    dates = pd.date_range('2015-01-01', '2016-12-31')
+    dates = pd.date_range('2016-01-01', '2016-12-31')
     
     symbols = ['000016']
     df = get_data(symbols, dates)

@@ -86,11 +86,11 @@ import sys
 sys.path.append('..')
 from mxnet import autograd
 
-learning_rate = .1
+learning_rate = .001
 #import pdb
 #pdb.set_trace()
 iterator = 0.
-for epoch in range(300):
+for epoch in range(5):
     train_loss = 0.
     train_acc = 0.
     for data, label in train_data:
@@ -99,10 +99,12 @@ for epoch in range(300):
             loss = cross_entropy(output, label)
         loss.backward()
         # 将梯度做平均，这样学习率会对batch size不那么敏感
-        SGD(params, learning_rate/batch_size)
+        SGD(params, learning_rate)
 
         iterator = iterator + 1
         train_loss += nd.mean(loss).asscalar()
+#         print(loss)
+#         print(iterator)
         train_acc += accuracy(output, label)
 
     test_acc = evaluate_accuracy(test_data, net)
